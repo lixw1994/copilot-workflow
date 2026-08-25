@@ -1,0 +1,4 @@
+.DS_Store
+.herdr/
+# Manifest produced by running init.sh on this repo itself (self-iteration testing)
+.copilot-workflow.yaml

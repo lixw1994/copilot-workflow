@@ -1,0 +1,5 @@
+# Squad-level skills manifest: init.sh installs the skills listed here into the
+# target project's .agents/skills/
+# (schema-level skills are declared in openspec/schemas/*/skills.txt)
+tech-doc
+eli5
