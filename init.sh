@@ -175,12 +175,14 @@ install_openspec() {
     note_skip "openspec (workspace + schemas + workflow skills)" "${fix}; then rerun this script"
     return
   fi
-  if [ ! -d "$TARGET/openspec" ]; then
-    (cd "$TARGET" && openspec init --tools "$TOOLS" --language "$LANGUAGE" --no-animation >/dev/null) \
-      || { warn "openspec init failed; component openspec skipped"
-           note_skip "openspec (init failed)" "investigate, then rerun: cd ${TARGET} && openspec init --tools ${TOOLS}"
-           return; }
-  fi
+  # openspec init is idempotent and refreshes its generated workflow skills.
+  # Always run it: a previous attempt may have created openspec/ before failing
+  # to finish .agents/skills/, and directory existence alone is not proof of a
+  # complete installation.
+  (cd "$TARGET" && openspec init --tools "$TOOLS" --language "$LANGUAGE" --no-animation >/dev/null) \
+    || { warn "openspec init failed; component openspec skipped"
+         note_skip "openspec (init failed)" "investigate, then rerun: cd ${TARGET} && openspec init --tools ${TOOLS}"
+         return; }
   sync_dir "$SRC/openspec/schemas/spec-driven-with-adr" "$TARGET/openspec/schemas/spec-driven-with-adr"
   sync_dir "$SRC/openspec/schemas/minimalist" "$TARGET/openspec/schemas/minimalist"
   # Set the default schema to spec-driven-with-adr (preserve the rest of the config)

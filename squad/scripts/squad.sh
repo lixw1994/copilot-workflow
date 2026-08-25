@@ -170,7 +170,16 @@ inject_role() {
 
 launch_role() {
   local role="$1" kind="$2" args="$3" name pane res
-  name="$(pick_name "$role")"
+  if ! name="$(pick_name "$role")"; then
+    log "failed: ${role} (no available agent name; no tab created)"
+    FAILED="${FAILED}- ${role}"$'\n'
+    return 1
+  fi
+  if [ -z "$name" ]; then
+    log "failed: ${role} (name selection returned empty; no tab created)"
+    FAILED="${FAILED}- ${role}"$'\n'
+    return 1
+  fi
   if agent_ours "$name"; then
     log "reuse: $role → ${name} (already alive)"
     ROSTER="${ROSTER}- ${role} → ${name}"$'\n'

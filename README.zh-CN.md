@@ -24,10 +24,11 @@
 ## 目录说明
 
 ```
-init.sh              一键安装脚本（把下列能力装进任意项目）
+init.sh              一键安装下列受托管工作流资产
 AGENTS.md            工作流纪律 + 小队条件入口（coding agent 自动加载）
 scripts/
   pre-commit.sh      纪律钩子逻辑（spec 校验 + ADR 不可变，随项目版本化）
+  regression-test.sh 仅在模板仓库运行的安装自愈与小队名称冲突回归检查
 openspec/            OpenSpec 工作区（specs = 功能现状，changes = 进行中变更）
   schemas/spec-driven-with-adr/   默认工作流 schema（随仓库版本化）
   schemas/minimalist/             探索性 spike 用的轻量 schema（specs → tasks）

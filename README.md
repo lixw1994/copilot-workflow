@@ -24,10 +24,11 @@ Squad philosophy: **Dogfooding by default**. The Tech Lead is an engineer of wor
 ## Repository layout
 
 ```
-init.sh              One-command installer (puts everything below into any project)
+init.sh              One-command installer for the managed workflow assets below
 AGENTS.md            Workflow discipline + conditional squad entry (auto-loaded by coding agents)
 scripts/
   pre-commit.sh      Discipline hook logic (spec validation + ADR immutability, versioned with the project)
+  regression-test.sh Template-only regression checks for installer recovery and squad name collisions
 openspec/            OpenSpec workspace (specs = current capabilities, changes = work in progress)
   schemas/spec-driven-with-adr/   Default workflow schema (versioned in the repo)
   schemas/minimalist/             Lightweight schema for exploratory spikes (specs → tasks)

@@ -48,6 +48,11 @@ Herdr agent names are globally unique within a session. The script SHALL prefer 
 - **WHEN** the session already has an agent named `researcher` from another project and this project's prefix is `myproj`
 - **THEN** this project's researcher starts as `myproj-researcher` and the script output shows the actual name
 
+#### Scenario: Bare and prefixed names both taken
+
+- **WHEN** both `researcher` and `myproj-researcher` are live in other workspaces
+- **THEN** launching this project's researcher fails before creating a tab, never calls `herdr agent start` with an empty name, and exits non-zero
+
 #### Scenario: Rerun is idempotent
 
 - **WHEN** the script runs again while the target-named agent is already alive in this workspace

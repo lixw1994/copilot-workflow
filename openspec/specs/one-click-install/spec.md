@@ -48,6 +48,11 @@ Repeated execution SHALL be safe: managed content is updated to the current temp
 - **WHEN** the user runs `init.sh` again in a project that already has it installed
 - **THEN** the marker block content and managed files are replaced with the new version, the version in `.copilot-workflow.yaml` updates, content outside the block, user-created files, `.herdr/squad.local.conf`, and `.herdr/handoff/` contents remain untouched, and the script exits 0
 
+#### Scenario: Repair an incomplete OpenSpec initialization
+
+- **WHEN** a prior `openspec init` attempt created `openspec/` but failed before generating the requested workflow skills
+- **THEN** rerunning the installer invokes `openspec init` again, restores the missing skills, and records the `openspec` component as installed only after initialization succeeds
+
 #### Scenario: Template repository self-install
 
 - **WHEN** `./init.sh` runs in the template repository root

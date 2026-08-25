@@ -12,6 +12,7 @@ flowchart LR
         initsh["init.sh"]
         agents_src["AGENTS.md<br/>(managed block source)"]
         scripts_src["scripts/pre-commit.sh"]
+        regression["scripts/regression-test.sh<br/>(template-only checks)"]
         schemas["openspec/schemas/*"]
         skills_src[".agents/skills/*"]
         adr_rules["adr/README.md"]
@@ -114,9 +115,11 @@ flowchart LR
 | Property | Mechanism |
 |----------|-----------|
 | Merge-based | `AGENTS.md` managed only inside `<!-- copilot-workflow:begin/end -->` markers; pre-existing hooks backed up and chain-called |
-| Idempotent | Managed directories replaced wholesale on rerun; `.copilot-workflow.yaml` manifest records version and managed paths |
+| Idempotent | Managed directories are replaced wholesale; `openspec init` reruns to repair generated workflow skills; the manifest records version and managed paths |
 | Progressive | Missing git fails fast; missing openspec CLI skips that component with a remediation command; missing jq/herdr only produces a notice |
 | Self-install safe | When source and target paths coincide (template repo installing onto itself), managed assets are left alone and only derived artifacts (`.herdr/`) are generated |
+
+The template-only `scripts/regression-test.sh` exercises recovery from a partial OpenSpec initialization and verifies that squad name collisions fail before creating runtime topology. The installer never copies this test harness into target projects.
 
 ## Squad topology
 
